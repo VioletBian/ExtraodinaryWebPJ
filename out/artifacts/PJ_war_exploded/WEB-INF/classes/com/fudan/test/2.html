@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        var context;
+        var canvas;
+        var iMouseX, iMouseY = 1;
+        var image;
+        //绘制区域
+        window.onload = function() {
+
+            function draw(id){
+                canvas = document.getElementById(id);
+                if(canvas == null)
+                    return false;
+                context = canvas.getContext('2d');
+                context.fillStyle = "#eeeeff";
+                context.fillRect(0,0,400,300);
+                //一边装载，一边绘制
+                image = new Image();
+                image.src = "../../../../web/static/img/normal/medium/9493997865.jpg";
+                image.onload = function() {
+                    drawImg(context,image);
+                };
+            }
+            //将原始图片添加到网页上
+            function drawImg(context,image) {
+                context.drawImage(image,0,0,100,100);
+            }
+            draw('canvas');
+
+
+            //点击原始图片放大事件
+            canvas.onclick = function(e) {//监听鼠标动作
+                iMouseX = Math.floor(e.pageX);
+                iMouseY = Math.floor(e.pageY)-82;
+                context.drawImage(image,iMouseX,iMouseY,57,80,110,0,200,200);
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>canvas元素示例</h1>
+<canvas id="canvas" width="400" height="300" ></canvas>
+</body>
+</html>

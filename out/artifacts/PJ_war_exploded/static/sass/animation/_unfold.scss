@@ -1,0 +1,21 @@
+.down{
+    transform-origin: center center;
+    transition: 200ms;
+    -moz-transition: 200ms;
+   -webkit-transition: 200ms;
+    -ms-transition: 200ms;
+    -o-transition: 200ms;
+}
+.up {
+    transform-origin: center center;
+    transform:rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transition: 200ms;
+    -moz-transition: 200ms;
+   -webkit-transition: 200ms;
+    -ms-transition: 200ms;
+    -o-transition: 200ms;
+}

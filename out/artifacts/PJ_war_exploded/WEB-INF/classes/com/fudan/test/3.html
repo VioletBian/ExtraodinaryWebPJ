@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .box {
+        width: 400px;
+        height: 500px;
+        margin-left: 50px;
+        background: url("../../../../web/static/img/normal/medium/9493997865.jpg") 0 0/200% 200% no-repeat;
+    }
+
+    .largebox {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .onebox{
+        width: 400px;
+        height: 500px;
+        position: relative;
+        background: url("../../../../web/static/img/normal/medium/9493997865.jpg") 0 0/cover no-repeat;
+    }
+    .smallbox {
+        width: 200px;
+        height: 250px;
+        background-color: rgba(0, 0, 0, 0.3);
+        position: absolute;
+        opacity: 0;
+    }
+    </style>
+<body>
+
+<div class="largebox">
+    <div class="onebox">
+        <div class="smallbox">
+        </div>
+    </div>
+    <div class="box">
+
+    </div>
+</div>
+<div class="back">
+
+</div>
+
+</body>
+<script>
+    //  js
+    function $cl(cl){
+        return document.getElementsByClassName(cl)[0];   //根据classname获取节点
+    }
+
+    $cl("onebox").onmouseover=function(event){
+        $cl("smallbox").style.opacity="1";      //鼠标移上去时小盒子出现
+//鼠标离屏幕左边的距离减去小盒子离屏幕左边的距离
+        var smallX=event.clientX-$cl("smallbox").offsetLeft;
+//鼠标离屏幕顶部的距离减去小盒子离屏幕顶部的距离
+        var smallY=event.clientY-$cl("smallbox").offsetTop;
+        $cl("onebox").onmousemove=function(event){
+            var x = event.clientX - smallX;
+            var y = event.clientY - smallY;
+            if(x < 0){
+                x = 0;
+            }else if(x > $cl("onebox").offsetWidth - $cl("smallbox").offsetWidth){
+                x =  $cl("onebox").offsetWidth - $cl("smallbox").offsetWidth;
+            }
+            if(y < 0){
+                y = 0;
+            }else if(y > $cl("onebox").offsetHeight - $cl("smallbox").offsetHeight){
+                y =  $cl("onebox").offsetHeight - $cl("smallbox").offsetHeight;
+            }
+            $cl("smallbox").style.left = x + "px";          //小盒子随着鼠标的移动而移动
+            $cl("smallbox").style.top = y + "px";
+            $cl("box").style.backgroundPositionX=-x +'px'; //背景图片的位置
+            $cl("box").style.backgroundPositionY=-y +'px';
+        }
+    }
+</script>
+</html>

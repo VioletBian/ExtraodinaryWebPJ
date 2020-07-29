@@ -1,0 +1,289 @@
+@import '../base/fonts';
+
+nav {
+    /* 设置宽度高度背景颜色 */
+    @media (min-width: 2000px){
+      height: calc(1vh + 4px + 55px + 6px + 5px);
+    }
+    @media (min-width: 1401px) and (max-width:1999px) {
+      height: calc(1vh + 3px + 30px + 6px + 5px);  }
+    @media (min-width:760px) and (max-width: 1400px) {
+      height: calc(1vh + 2.5px + 30px + 6px + 5px);  }
+    @media (min-width:460px) and (max-width: 759px) {
+      height: calc(1vh + 2px + 30px + 6px + 5px);  }
+     @media (max-width: 459px) {
+      height: calc(1vh + 2px + 30px + 6px + 5px);  }
+    /*高度改为自动高度*/
+    width: 100%;
+    margin-left: 0;
+    padding-left: 0;
+    
+    position: fixed;
+    /*固定在顶部*/
+    top: 0;
+    left: 0;
+    z-index: 20; 
+    display: block;
+    border: 1px solid #f6f6f6;
+  
+  }
+  .right a{
+    font-family: "Beon";
+    font-weight: bold;
+  }
+  .light {
+    background-color: rgba(255, 255, 255,0.9);
+    .outer-path{
+      fill:#444444;
+    }
+    .right>a{
+      color: rgb(75, 75, 75);
+      font-size: large;
+      
+      
+      }
+  
+    
+   
+  }
+  .dark{
+    background-color: rgba(23, 23, 24, 0.7);
+    .outer-path{
+      fill:#ffffff;
+    }
+    .right>a{
+      color: rgb(255, 255, 255);
+      font-size: large;
+
+
+      }
+
+  }
+  .sky{
+    background-color:rgba(224, 233, 241, 0.9);
+    .outer-path{
+      fill:#444444;
+    }
+    .right>a{
+      color: #556d81;
+      font-size: large;
+
+
+    }
+   
+  }
+  
+ 
+  #loginTip a{
+    vertical-align: middle;
+    font-size: large;
+    }
+
+
+  nav>ul {
+    padding:1vh 0 0 0; 
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0px;
+    
+    /* 清除ul标签的默认样式 */
+    width: auto;
+    /*宽度也改为自动*/
+    list-style-type: none;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 4%;
+ 
+  
+
+    
+
+  li {
+      float: left;
+      /* 使li内容横向浮动，即横向排列  */
+      margin-right: 3.5%;
+      /* 两个li之间的距离*/
+      /* position: relative; */
+      overflow: hidden; 
+      a {
+        /* 设置链接内容显示的格式*/
+        display: block;
+        /* 把链接显示为块元素可使整个链接区域可点击 */
+        text-align: center;
+        padding: 3px;
+        overflow: hidden;
+        text-decoration: none;
+        /* 去除下划线 */
+        //background-color: none;
+        transition-property: all;
+        transition-duration: 500ms; }
+    
+        svg{
+          @media (min-width: 2000px){
+            width: 55px;
+            height: 55px;
+        }
+          @media (min-width: 1401px) and (max-width:1999px) {
+            width: 30px;
+            height: 30px;      
+        }
+          @media (min-width:760px) and (max-width: 1400px) {
+            width: 30px;
+            height: 30px;
+        }
+          @media (min-width:460px) and (max-width: 759px) {
+            width: 30px;
+            height: 30px;
+        }
+           @media (max-width: 459px) {
+            width: 30px;
+            height: 30px;
+        }
+
+        }
+      a:hover {
+        /* 鼠标选中时背景变为深色 */
+        background-color: #cfe2f3;
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2); 
+        }
+  }
+
+  li:hover ul {
+      /* 鼠标选中二级菜单内容时 */
+
+      @media (min-width: 1400px) {
+          left: auto; 
+      }
+      @media (max-width:1399px) {
+          display: block;
+      }
+
+      
+    
+    }
+
+    .selected a {
+    
+      @media (min-width: 2000px){
+        border-bottom: 4px solid #0a88d3;
+    }
+      @media (min-width: 1401px) and (max-width:1999px) {
+        border-bottom: 3px solid #0a88d3;     
+    }
+      @media (min-width:760px) and (max-width: 1400px) {
+        border-bottom: 2.5px solid #0a88d3;
+    }
+      @media (min-width:460px) and (max-width: 759px) {
+        border-bottom: 2px solid #0a88d3;
+    }
+       @media (max-width: 459px) {
+        border-bottom: 2px solid #0a88d3;
+    }
+      
+  }
+  .style{
+    cursor: pointer;
+  }
+   .mine {
+
+  @media (min-width:1400px) {
+      margin-right: 6.5%;
+  }
+  
+   }
+   .right {
+     float: right;
+     
+      
+
+
+      
+
+    ul {
+         /* 设置二级菜单 */
+         margin-left: 0px;
+         background: #ffffff77;
+
+        @media (min-width: 1400px) {
+        position: absolute;
+        left: -999em;
+        }
+      @media (max-width:1399px) {
+          position: relative;
+         display: none;
+      }
+
+        
+       
+
+         border: 1px hidden #f6f6f6;
+         border-radius: 6px;
+         padding-inline-start: 0px;
+         /* 默认隐藏二级菜单的内容 */
+   
+         li {
+           /* 二级菜单li内容的显示 */
+           float: none;
+           text-align: center;
+           background-size: auto;
+           padding-left: 2%; }
+   
+         a {
+           /* 设置链接内容显示的格式*/
+           display: block;
+           /* 把链接显示为块元素可使整个链接区域可点击 */
+           color: rgb(96, 96, 99);
+           font-family: 'Beon';
+           font-weight: bold;
+           text-align: center;
+           padding: 3px;
+           overflow: hidden;
+           text-decoration: none;
+           /* 去除下划线 */
+           //background-color: none;
+           transition-property: all;
+           transition-duration: 500ms; 
+           font-size: inherit;
+          
+          
+          }
+      
+      svg.icon {
+        margin-right: 1%;
+        float: left;  
+        @media (min-width: 2000px){
+          width: 30px;
+          height: 30px;
+      }
+        @media (min-width: 1401px) and (max-width:1999px) {
+          width: 27px;
+          height: 27px;      
+      }
+        @media (min-width:760px) and (max-width: 1400px) {
+          width: 22px;
+          height: 22px;
+      }
+        @media (min-width:460px) and (max-width: 759px) {
+          width: 20px;
+          height: 20px;
+      }
+         @media (max-width: 459px) {
+          width: 18px;
+          height: 18px;
+      }
+      }
+
+
+
+  
+     
+    }
+  }
+      
+}
+.hidden {
+  display: none;
+}

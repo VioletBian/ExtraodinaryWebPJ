@@ -1,0 +1,45 @@
+
+.float-button {
+    float: right;
+    position: fixed;
+    right: 10px;
+    bottom: 5px;
+    z-index: 30;
+    ul {
+        list-style: none;
+        padding-inline-start: 0px;
+    }
+    li {
+        margin-bottom: 30%;
+        padding-top: 15%;
+        padding-left: 15%;
+        padding-right: 15%;
+        // background-color: rgba(245, 245, 247, 0.5);
+        // border-radius: 10px;
+    }
+
+    svg{
+        @media (min-width: 2000px){
+          width: 55px;
+          height: 55px;
+      }
+        @media (min-width: 1401px) and (max-width:1999px) {
+          width: 30px;
+          height: 30px;      
+      }
+        @media (min-width:760px) and (max-width: 1400px) {
+          width: 30px;
+          height: 30px;
+      }
+        @media (min-width:460px) and (max-width: 759px) {
+          width: 30px;
+          height: 30px;
+      }
+         @media (max-width: 459px) {
+          width: 30px;
+          height: 30px;
+      }
+        
+      }
+}
+

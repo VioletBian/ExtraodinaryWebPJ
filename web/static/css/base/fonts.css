@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'Unique';
+  src: url("../font/UniqueRegular.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Dancing';
+  src: url("../font/dancing/DancingScript-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal; }
+@font-face {
+  font-family: 'Dancing';
+  src: url("../font/dancing/DancingScript-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: bold; }
+@font-face {
+  font-family: 'League Spartan';
+  src: url("../font/leaguespartan/leaguespartan-bold.eot");
+  src: url("../font/leaguespartan/leaguespartan-bold.eot?#iefix") format("embedded-opentype"), url("../font/leaguespartan/leaguespartan-bold.woff2") format("woff2"), url("../font/leaguespartan/leaguespartan-bold.woff") format("woff"), url("../font/leaguespartan/leaguespartan-bold.svg#league_spartanbold") format("svg");
+  font-weight: bold;
+  font-style: normal; }
+@font-face {
+  font-family: 'Grundschrift';
+  src: url("../font/grundschrift/Grundschrift-Regular.otf");
+  font-style: normal;
+  font-weight: normal; }
+@font-face {
+  font-family: 'Grundschrift';
+  src: url("../font/grundschrift/Grundschrift-Bold.otf");
+  font-style: normal;
+  font-weight: bold; }
+@font-face {
+  font-family: 'Grundschrift';
+  src: url("../font/grundschrift/Grundschrift-Light.otf");
+  font-style: normal;
+  font-weight: lighter; }
+@font-face {
+  font-family: 'Beon';
+  src: url("../font/Beon/Beon-Regular.otf");
+  font-style: normal;
+  font-weight: normal; }
+
+/*# sourceMappingURL=fonts.css.map */
