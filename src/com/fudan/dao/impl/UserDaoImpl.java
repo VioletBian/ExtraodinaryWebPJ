@@ -101,5 +101,15 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     }
 
+    @Override
+    public void addComment(String id, String username, String content) {
+        id = id.replace("ImageID=","");
+        int ID = Integer.parseInt(id);
+        String sql = "insert into `comments` (ImageID,UserName,content) values (?,?,?)";
+        update(sql,id,username,content);
+
+    }
+
+
 
 }

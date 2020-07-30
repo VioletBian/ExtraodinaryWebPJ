@@ -1,5 +1,6 @@
 package com.fudan.service;
 
+import com.fudan.pojo.Comment;
 import com.fudan.pojo.Img;
 import com.fudan.pojo.User;
 
@@ -53,6 +54,9 @@ public interface UserService {
     public void pass(String username, String target);
     public void block(String username);
     public void allow(String username);
+    List<Comment> getComments(String id);
+    void addComment(String id, String username, String content);
+    void likeComment(int cid);
 
 
 }

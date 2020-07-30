@@ -329,7 +329,7 @@ body {
   margin-right: auto; }
   @media (min-width: 2000px) {
     .detail-block {
-      margin-top: calc(4vh + 4px + 55px + 6px + 5px );
+      margin-top: calc(4vh + 4px + 55px + 6px + 5px);
       width: 70%; } }
   @media (min-width: 1401px) and (max-width: 1999px) {
     .detail-block {
@@ -399,7 +399,7 @@ main img {
   padding: 0 2%; }
 
 .right-property .detail-property {
-  font-family: "Beon";
+  font-family: 'Beon';
   font-style: italic;
   color: #1a43b6;
   font-size: large;
@@ -444,7 +444,7 @@ button svg {
   padding-top: 1%;
   margin-right: 7%; }
 
-section.description {
+section {
   border-top: 3px solid #f6f6f6;
   margin-top: 2%;
   padding-top: 2%;
@@ -488,5 +488,74 @@ section.description:first-letter {
   left: 0;
   display: none;
   cursor: move; }
+
+section.comments h3 {
+  color: #4c86bd; }
+  section.comments h3 svg {
+    width: 30px;
+    height: 30px; }
+section.comments ul {
+  width: 80%;
+  margin: 0 auto; }
+  section.comments ul li {
+    border-left: 4px solid #f6f6f6;
+    list-style: none;
+    padding: 1%;
+    box-sizing: border-box;
+    margin-bottom: 2%; }
+    section.comments ul li .user {
+      font-size: large;
+      color: rgba(68, 131, 182, 0.82);
+      font-family: "Beon"; }
+    section.comments ul li .content {
+      margin-top: 2%;
+      overflow: hidden; }
+    section.comments ul li .time {
+      font-size: small;
+      float: right;
+      color: #8c8c8c;
+      font-family: Helvetica; }
+  section.comments ul span {
+    float: right; }
+    section.comments ul span svg {
+      width: 24px;
+      height: 24px; }
+    section.comments ul span svg.liked path {
+      fill: #E12F2C; }
+section.comments form {
+  display: block;
+  margin-block-end: 0;
+  margin: 1em auto;
+  padding-left: auto;
+  padding-right: auto;
+  text-align: center; }
+  section.comments form label {
+    color: #64739c;
+    font-size: medium;
+    font-family: Menlo; }
+  section.comments form input {
+    outline: none;
+    overflow: hidden;
+    border: 2px solid #eee;
+    border-radius: 3px;
+    font: medium sans-serif;
+    color: #555;
+    background: #fff;
+    border-radius: 5px;
+    border-style: solid;
+    width: 55%;
+    height: 50px;
+    margin-bottom: 2%;
+    margin-right: auto;
+    padding-left: auto;
+    padding-right: auto; }
+  section.comments form button {
+    background: #071b4d;
+    border-color: #030b1e;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    margin-left: 2%;
+    width: 18%; }
 
 /*# sourceMappingURL=detail.css.map */

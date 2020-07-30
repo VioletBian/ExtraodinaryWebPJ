@@ -150,8 +150,6 @@
                                 }
                             }
                             for (Img im : imgs) {
-                                System.out.println(im.getTime());
-                                System.out.println(im.getPopularity());
                         %>
                         <%=im.getSearch()%>
                         <%

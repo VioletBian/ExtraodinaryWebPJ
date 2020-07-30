@@ -21,115 +21,128 @@
 
 2. bonus实现思路与细节
 
-	1. 局部放大：
+  1. 局部放大：
 
-		> 通过js对鼠标位置定位，计算出遮罩中心位置，并将缩放后的大图展示出来。
+  	> 通过js对鼠标位置定位，计算出遮罩中心位置，并将缩放后的大图展示出来。
 
-		
+  	
 
-	2. 验证码
+  2. 验证码
 
-		> 配合goole-kaptcha的jar包实现后台验证码值和前台验证码图的同步，以及点击图片更换验证码。
+  	> 配合goole-kaptcha的jar包实现后台验证码值和前台验证码图的同步，以及点击图片更换验证码。
 
-		
+  	
 
-	3. 实时聊天
+  3. 实时聊天
 
-		* 后端：
+  	* 后端：
 
-			* 使用websocket实现实时聊天。
-			* WsConfigurator 继承 ServerEndpointConfig.Configurator类，从Handshake中获取httprequest，实现从cookie或session中获取用户名。
+  		* 使用websocket实现实时聊天。
+  		* WsConfigurator 继承 ServerEndpointConfig.Configurator类，从Handshake中获取httprequest，实现从cookie或session中获取用户名。
 
-			```java
-			public class WsConfigurator extends ServerEndpointConfig.Configurator {
-				@Override
-				public void modifyHandshake(ServerEndpointConfig config, HandshakeRequest request, HandshakeResponse response) {
-					// 通过配置来获取httpSession
-					HttpSession httpSession = (HttpSession) request.getHttpSession();
-					String username = "";
-					String[] cookies = request.getHeaders().get("cookie").toString().split("; ");
-					System.out.println(cookies);
-			    // 在session和cookie中查找username，确保找到。
-					for(int i = 0; i < cookies.length; i++){
-						String x  =  cookies[i];
-						System.out.println(x);
-						if (x.contains("username=")){
-							System.out.println("yes,x="+x);
-							username = x.replace("username=","");
-							System.out.println(username);
-						}
-					}
-					if (httpSession != null) {
-						if(httpSession.getAttribute("username") == null){httpSession.setAttribute("username",username);}
-						System.out.println(HttpSession.class.getName());
-						config.getUserProperties().put(HttpSession.class.getName(), httpSession);
-					}
-				}
-			}
-			```
+  		```java
+  		public class WsConfigurator extends ServerEndpointConfig.Configurator {
+  			@Override
+  			public void modifyHandshake(ServerEndpointConfig config, HandshakeRequest request, HandshakeResponse response) {
+  				// 通过配置来获取httpSession
+  				HttpSession httpSession = (HttpSession) request.getHttpSession();
+  				String username = "";
+  				String[] cookies = request.getHeaders().get("cookie").toString().split("; ");
+  				System.out.println(cookies);
+  		    // 在session和cookie中查找username，确保找到。
+  				for(int i = 0; i < cookies.length; i++){
+  					String x  =  cookies[i];
+  					System.out.println(x);
+  					if (x.contains("username=")){
+  						System.out.println("yes,x="+x);
+  						username = x.replace("username=","");
+  						System.out.println(username);
+  					}
+  				}
+  				if (httpSession != null) {
+  					if(httpSession.getAttribute("username") == null){httpSession.setAttribute("username",username);}
+  					System.out.println(HttpSession.class.getName());
+  					config.getUserProperties().put(HttpSession.class.getName(), httpSession);
+  				}
+  			}
+  		}
+  		```
 
-			
+  		
 
-			* Message类打包message实例，设置消息类型、消息host和dests等，同时实现【可序列化】接口。
+  		* Message类打包message实例，设置消息类型、消息host和dests等，同时实现【可序列化】接口。
 
-			```java
-			   public Message(String host, int type, String[] dests) {
-			        this(host, type);
-			        setDests(dests);
-			    }
-			
-			    @Override
-			    public String toString() {
-					/*
-					  序列化成json串
-					 */
-			        return JSONObject.toJSONString(this);
-			    }
-			```
+  		```java
+  		   public Message(String host, int type, String[] dests) {
+  		        this(host, type);
+  		        setDests(dests);
+  		    }
+  		
+  		    @Override
+  		    public String toString() {
+  				/*
+  				  序列化成json串
+  				 */
+  		        return JSONObject.toJSONString(this);
+  		    }
+  		```
 
-			
+  		
 
-			* TextController类及父类（后台主程序）建立连接实例时，使用静态类常量储存自身；@ServerEndPoint注释注册ws服务器，@PathParam注入私聊对象名称；重写@OnOpen/@OnMessage/@OnClose等方法；通过与客户端会话session（不是http的session）找到BasicRemote()，实现同步广播给指定连接、指定客户端。
+  		* TextController类及父类（后台主程序）建立连接实例时，使用静态类常量储存自身；@ServerEndPoint注释注册ws服务器，@PathParam注入私聊对象名称；重写@OnOpen/@OnMessage/@OnClose等方法；通过与客户端会话session（不是http的session）找到BasicRemote()，实现同步广播给指定连接、指定客户端。
 
-			```java
-			/**
-			     * 同步方式向客户端发送字符串
-			     *
-			     * @param msg 参数类型为String或ByteBuffer
-			     */
-			    protected <T> void call(T msg) {
-			        try {
-			            synchronized (this) {
-			                RemoteEndpoint.Basic remote = this.getSession().getBasicRemote();
-			                if (msg instanceof String) {
-			                    remote.sendText((String) msg);
-			                } else if (msg instanceof ByteBuffer) {
-			                    remote.sendBinary((ByteBuffer) msg);
-			                }
-			
-			            }
-			        } catch (IOException e) {
-			            try {
-			                this.getSession().close();
-			            } catch (IOException ignored) {
-			            }
-			            onClose();
-			        }
-			    }
-			```
+  		```java
+  		/**
+  		     * 同步方式向客户端发送字符串
+  		     *
+  		     * @param msg 参数类型为String或ByteBuffer
+  		     */
+  		    protected <T> void call(T msg) {
+  		        try {
+  		            synchronized (this) {
+  		                RemoteEndpoint.Basic remote = this.getSession().getBasicRemote();
+  		                if (msg instanceof String) {
+  		                    remote.sendText((String) msg);
+  		                } else if (msg instanceof ByteBuffer) {
+  		                    remote.sendBinary((ByteBuffer) msg);
+  		                }
+  		
+  		            }
+  		        } catch (IOException e) {
+  		            try {
+  		                this.getSession().close();
+  		            } catch (IOException ignored) {
+  		            }
+  		            onClose();
+  		        }
+  		    }
+  		```
 
-		* 前端:
-			* `window.WSClient`函数对象实现了消息类型、连接后open、message、close的函数
-			* `chatterClient`的实例对象和ws主机之间实现了通信，通过路径给后台注入了私聊对象名称参数。调用上述函数正确反射，实现了`isMe()`判断消息主体，`addMyMsg()/addOtherMsg()`输出前台消息，`initUserList()`在右侧在线列表中更新在线用户。
+  	* 前端:
+  		* `window.WSClient`函数对象实现了消息类型、连接后open、message、close的函数
+  		* `chatterClient`的实例对象和ws主机之间实现了通信，通过路径给后台注入了私聊对象名称参数。调用上述函数正确反射，实现了`isMe()`判断消息主体，`addMyMsg()/addOtherMsg()`输出前台消息，`initUserList()`在右侧在线列表中更新在线用户。
 
-		
+  	
 
-	4. 高级搜索
+  4. 高级搜索
 
-		* "北京 大学"匹配"北京大学"、''北京xx大学''、"大学在北京"
-		* "Prak" 匹配 "Park"
+    输入含空格时的处理、发音歧义纠错。无空格时作为子串查询，有空格时多子串匹配，比如：
 
-	5. 评论
+    * "北京 大学"匹配"北京大学"、''北京xx大学''、"大学在北京"、"大学北京"
+
+    	> 使用split()分割后添加多个`like '%subtring%' `检索
+
+    * "Milam" 匹配 "Milan"(相似发音)
+
+    	> SUBSTRING(SOUNDEX(a.Title),1,4)函数,返回发音元音。
+
+    注意多种不同方式搜索结果需要**不重复地**整合输出。
+
+  5. 评论:
+
+  	不登录时也可以点赞。但是只能点一次。
+
+  	在id中记录评论号，对应新表comments。
 
 
 

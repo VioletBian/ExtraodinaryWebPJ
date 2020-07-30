@@ -10,7 +10,7 @@
             WS_MsgToPoints = 4,
             WS_RequireLogin = 5,
             WS_setName = 6,
-            types = ["文本", "视频", "语音"],
+            types = ["文本", "xx", "xx"],
             getWebSocket = function(host) {
                 var socket;
                 if ('WebSocket' in window) {

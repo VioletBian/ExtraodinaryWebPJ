@@ -1,6 +1,7 @@
 package com.fudan.dao;
 
 
+import com.fudan.pojo.Comment;
 import com.fudan.pojo.Img;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public interface ImgDao {
     public void modify(String username,Img img);
     public void upload(String username, Img img);
     public List<Img> search(boolean titleOrTheme ,String input);
+    List<Comment> getComments(String id);
+    public Comment getComment(int cid);
+    void likeComment(int cid);
 
 
 }

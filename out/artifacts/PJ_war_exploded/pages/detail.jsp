@@ -5,6 +5,7 @@
 <%@ page import="com.fudan.service.UserService" %>
 <%@ page import="com.fudan.pojo.User" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.fudan.pojo.Comment" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     UserService userService = new UserServiceImpl();
@@ -18,6 +19,7 @@
     <title>Detail Projectouriscenary </title>
     <meta name="viewport" content="width=device-width">
     <base href="<%= getServletConfig().getServletContext().getInitParameter("base")%>">
+<%--    <link rel="stylesheet" href="static/css/friends.css">--%>
     <link rel="stylesheet" href="static/css/detail.css">
     <script src='static/js/jquery-3.5.1.js'></script>
     <script src='static/js/vue.js'></script>
@@ -143,6 +145,34 @@
         <div class="clearboth"></div>
         <section class="description"><%=img.getDescription()%>
         </section>
+        <section class="comments">
+            <div>
+            <h3>
+                <svg t="1596117045087" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg" p-id="3903">
+                    <path d="M844.8 73.6H179.2c-63.6 0-115.1 51.6-115.2 115.2v454.9c0 63.5 51.7 115.2 115.2 115.2h352l180.3 180.3c7.5 7.5 17.3 11.2 27.2 11.2 9.8 0 19.7-3.7 27.2-11.2 15-15 15-39.3 0-54.3l-184-184c-12-12.1-28.3-18.8-45.3-18.8H179.2c-21.2 0-38.4-17.2-38.4-38.4V188.8c0-21.2 17.2-38.4 38.4-38.4h665.6c21.2 0 38.4 17.2 38.4 38.4v454.9c0 21.2-17.2 38.4-38.4 38.4h-87c-21.2 0-38.4 17.2-38.4 38.4s17.2 38.4 38.4 38.4h87c63.5 0 115.2-51.7 115.2-115.2V188.8c0-63.5-51.7-115.2-115.2-115.2z"
+                          fill="#1296db" p-id="3904"></path>
+                </svg>
+                Comments
+            </h3>
+            </div>
+            <%
+            %>
+                <form name="form1" id="form" action="commentServlet?<%=query%>" method="post">
+                    <input type="text" name="content" id="content" placeholder="Comment this image">
+                    <button type="submit" id="btn">Send</button>
+                </form>
+            <ul id="comments">
+                <%
+                    for (Comment c : userService.getComments(query)) {
+                %><%=c.output()%><%
+                }
+            %>
+
+
+            </ul>
+
+        </section>
 
 
     </div>
@@ -161,6 +191,7 @@
 %>
 <script>document.getElementById('favor').hidden = 'hidden';
 document.getElementById('unfavor').hidden = 'hidden';
+document.getElementById('form').style = 'display:none';
 </script>
 <%
 } else {
@@ -199,10 +230,23 @@ document.getElementById('unfavor').hidden = 'hidden';
     var img = document.querySelector(".max img");
     var fd = document.querySelector(".fd");
     var rt = document.querySelector(".right-block");
+    var likes = document.getElementsByClassName("like");
 
     var ratio = document.getElementsByTagName("img")[0].width / document.getElementsByTagName("img")[0].height;
     max.style.height = "300px";
     max.style.width = 300 * ratio + "px";
+
+    for(let i = 0; i<likes.length; i++){
+        likes.item(i).addEventListener("click",function(){
+            // this.childNodes.item("path").fill = "#E12F2C";
+            this.classList.add("liked");
+            var cid = document.getElementById('comments').children.item(i).id;
+            sendAjax(cid);
+            var x =$("#"+ cid + " span .good").text();
+            $("#"+ cid + " span .good").text(x-(-1));
+
+        })
+    }
 
 
     min.onmouseover = function () {
@@ -254,6 +298,37 @@ document.getElementById('unfavor').hidden = 'hidden';
         console.log(img.width + ":" + img.height);
         // max.style.width
 
+    }
+
+    function sendAjax(id) {
+        $.ajax({
+            type: "get",//使用servlet中的get方法
+            url: "commentServlet",//进入那个servlet中去
+            //将值传入servlet
+            data: {
+                id:id,
+                like:"like"
+            },
+            statusCode: {
+                404: function () {
+                    alert("找不到该服务");//失败报错
+                }
+
+            },
+            success: function (data, textStatus) {
+
+            }
+
+        })
+
+    }
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
     }
 </script>
 </html>

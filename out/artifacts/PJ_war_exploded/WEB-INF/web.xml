@@ -119,6 +119,15 @@
         <url-pattern>/kaptcha.jpg</url-pattern>
     </servlet-mapping>
 
+        <servlet>
+            <servlet-name>CommentServlet</servlet-name>
+            <servlet-class>com.fudan.web.CommentServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>CommentServlet</servlet-name>
+            <url-pattern>/commentServlet</url-pattern>
+        </servlet-mapping>
+
     <!--    <servlet>-->
 <!--        <servlet-name></servlet-name>-->
 <!--        <servlet-class>com.fudan.web.</servlet-class>-->

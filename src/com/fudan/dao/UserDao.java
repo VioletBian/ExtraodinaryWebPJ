@@ -37,6 +37,7 @@ public interface UserDao {
     public boolean invite(String username, String target);
     public void pass(String username, String target);
     public void block(String username,boolean blockOrAllow);
+    void addComment(String id,String username,String content);
 
 
 }

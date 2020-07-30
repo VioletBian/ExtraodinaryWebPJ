@@ -4,6 +4,7 @@ import com.fudan.dao.ImgDao;
 import com.fudan.dao.UserDao;
 import com.fudan.dao.impl.ImgDaoImpl;
 import com.fudan.dao.impl.UserDaoImpl;
+import com.fudan.pojo.Comment;
 import com.fudan.pojo.Img;
 import com.fudan.pojo.User;
 import com.fudan.service.UserService;
@@ -145,6 +146,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public void allow(String username) {
         userDao.block(username,false);
+
+    }
+
+    @Override
+    public List<Comment> getComments(String id) {
+        System.out.println(imgDao.getComments(id));
+        return imgDao.getComments(id);
+    }
+
+    @Override
+    public void addComment(String id, String username, String content) {
+        userDao.addComment(id, username, content);
+
+    }
+
+    @Override
+    public void likeComment(int cid) {
+        imgDao.likeComment(cid);
 
     }
 
