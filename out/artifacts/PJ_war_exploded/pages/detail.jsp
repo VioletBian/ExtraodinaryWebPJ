@@ -39,8 +39,8 @@
         <div class="left-block">
 
             <div class="min">
-            <img src="static/img/normal/medium/<%=img.getPath()%>">
-            <div class="fd"></div>
+                <img src="static/img/normal/medium/<%=img.getPath()%>">
+                <div class="fd"></div>
             </div>
             <div class="max">
                 <img src="static/img/normal/medium/<%=img.getPath()%>">
@@ -90,6 +90,19 @@
                     </svg>
                     <span class='detail-property'>Theme</span> <span class='detail-value'><%=img.getContent()%></span>
                 </p>
+                <p>
+                    <svg t="1596100604132" class="icon" viewBox="0 0 1024 1024" version="1.1" width="20px" height="20px"
+                         xmlns="http://www.w3.org/2000/svg" p-id="2009">
+                        <path d="M1023.986784 196.335442L788.669487 0 736.852143 63.702056l235.792685 196.335442 51.341956-63.702056zM286.659253 63.702056L235.317297 0 0 195.860053l51.817344 63.702057zM537.66437 312.330231H460.651436v305.199403l243.398902 144.993487 38.506467-62.75128-204.892435-120.273285V312.330231z"
+                              fill="#396AFF" p-id="2010"></path>
+                        <path d="M511.993392 108.863962c-252.906671 1.901554-456.37294 208.220154-454.471386 460.651436 1.901554 252.906671 208.220154 456.37294 460.651436 454.471386 251.480505-1.901554 454.471386-206.3186 454.471386-457.799105-0.475388-253.382059-206.793988-458.274494-460.651436-457.323717z m0.475389 837.159112c0-0.475388 0-0.475388-0.475389-0.475389-209.646319-1.426165-377.458452-172.090629-376.032287-381.736949 1.426165-209.646319 172.090629-377.458452 381.736949-376.032287 208.220154 1.426165 376.032287 170.664464 376.032287 379.360007-0.475388 209.646319-171.139853 379.360006-381.26156 378.884618z"
+                              fill="#396AFF" p-id="2011"></path>
+                        <path d="M537.66437 312.330231H460.651436v305.199403l243.398902 144.993487 38.506467-62.75128-204.892435-120.273285V312.330231z"
+                              fill="#595BB3" p-id="2012"></path>
+                    </svg>
+                    <span class='detail-property'>Time</span> <span class='detail-value'><%=img.getTime()%></span>
+                </p>
+
                 <p>
                     <svg t="1586160362304" class="icon" viewBox="0 0 1195 1024" version="1.1"
                          xmlns="http://www.w3.org/2000/svg" p-id="15489" width="20px" height="20px">
@@ -144,7 +157,7 @@
 <script src='static/js/change_skin.js'></script>
 <%
     String username = User.getCookieValue(request.getCookies(), "username");
-    if ( username  == null) {
+    if (username == null) {
 %>
 <script>document.getElementById('favor').hidden = 'hidden';
 document.getElementById('unfavor').hidden = 'hidden';
@@ -155,16 +168,16 @@ document.getElementById('unfavor').hidden = 'hidden';
     if (session.getAttribute("footprint") == null) {
         List<Img> foots = new ArrayList<>();
         foots.add(img);
-        session.setAttribute("footprint",foots);
-    }else {
-        List<Img> foots = (List<Img>)session.getAttribute("footprint");
+        session.setAttribute("footprint", foots);
+    } else {
+        List<Img> foots = (List<Img>) session.getAttribute("footprint");
         // 以一种方法：两个循环(最蠢的方法)
         for (int i = 0; i < foots.size(); i++) {
             if (foots.get(i).getImageID() == img.getImageID()) {
                 foots.remove(i);//删除重复元素
             }
         }
-        if(foots.size() == 10) {
+        if (foots.size() == 10) {
             foots.remove(0);
         }
         foots.add(img);
@@ -187,12 +200,12 @@ document.getElementById('unfavor').hidden = 'hidden';
     var fd = document.querySelector(".fd");
     var rt = document.querySelector(".right-block");
 
-    var ratio = document.getElementsByTagName("img")[0].width/document.getElementsByTagName("img")[0].height;
+    var ratio = document.getElementsByTagName("img")[0].width / document.getElementsByTagName("img")[0].height;
     max.style.height = "300px";
-    max.style.width = 300*ratio + "px";
+    max.style.width = 300 * ratio + "px";
 
 
-    min.onmouseover = function(){
+    min.onmouseover = function () {
 //                1.鼠标覆盖显示max和fd
         max.style.display = "block";
         fd.style.display = "block";
@@ -200,45 +213,45 @@ document.getElementById('unfavor').hidden = 'hidden';
 
     }
     //            离开时隐藏
-    min.onmouseout = function(){
+    min.onmouseout = function () {
         max.style.display = "none";
         fd.style.display = "none";
         rt.style.display = "block";
     }
     //            2. fd的移动范围
-    min.onmousemove = function(){
+    min.onmousemove = function () {
 //                鼠标触摸的点
-        var x = event.clientX-min.offsetLeft-fd.offsetWidth/2;
-        var y = event.clientY-min.offsetTop-fd.offsetHeight/2;
+        var x = event.clientX - min.offsetLeft - fd.offsetWidth / 2;
+        var y = event.clientY - min.offsetTop - fd.offsetHeight / 2;
 //                最大移动距离
-        var maxX = min.clientWidth-fd.offsetWidth;
-        var maxY = min.clientHeight-fd.offsetHeight;
+        var maxX = min.clientWidth - fd.offsetWidth;
+        var maxY = min.clientHeight - fd.offsetHeight;
 //                边界判断
         if (x <= 0) {
             x = 0;
-        }else if (x >= maxX) {
+        } else if (x >= maxX) {
             x = maxX;
         }
         if (y <= 0) {
             y = 0;
-        }else if (y >= maxY) {
+        } else if (y >= maxY) {
             y = maxY;
         }
 //                fd的位置
-        fd.style.left = x+'px';
-        fd.style.top = y+'px';
+        fd.style.left = x + 'px';
+        fd.style.top = y + 'px';
         //fd/min = max/img
         //移动比例
-        var moveX = x/maxX;
-        var moveY = y/maxY;
+        var moveX = x / maxX;
+        var moveY = y / maxY;
 //                移动
 //                3. max的对应显示
 //                对于大图而言,放大镜在小图上移动的比例相当于img在可显示区域上移动的比例
 //                放大镜右移等于图片左移
 //                也就是本质上为img-max 然而而需要负值,则*-1简化后为max-img
-        img.style.left = moveX*(max.clientWidth - img.offsetWidth) + 'px';
-        img.style.top = moveY*(max.clientHeight - img.offsetHeight) + 'px';
-        console.log(img.width+":"+img.height);
+        img.style.left = moveX * (max.clientWidth - img.offsetWidth) + 'px';
+        img.style.top = moveY * (max.clientHeight - img.offsetHeight) + 'px';
+        console.log(img.width + ":" + img.height);
         // max.style.width
 
     }

@@ -21,10 +21,15 @@
     }
 %>
 <%
-    User user = (request.getQueryString() != null) ? userService.getUserByName(request.getQueryString().replace("UserName=", "")) : null;
-    if (user != null) status = false;
-    if(request.getQueryString() == null) status = true;
-    System.out.println("status="+status);
+    if (request.getQueryString() != null) {
+        System.out.println(request.getQueryString());
+        status = false;
+    }
+    System.out.println("debug1 " + UserServiceImpl.getCookieByName(request, "username").getValue());
+    System.out.println("debug2 " + userService.getUserByName("bianyuzhe"));
+    System.out.println("status= " + status);
+    User user = (status) ? userService.getUserByName(UserServiceImpl.getCookieByName(request, "username").getValue()) : userService.getUserByName(request.getQueryString().replace("UserName=", ""));
+    System.out.println("status=" + status);
 %>
 <html>
 
@@ -52,16 +57,20 @@
 
         <ul id="my-photos">
             <li class="headline"><%= status? "My favorites" :  user.getUsername()+"'s favorites"%>
-                    <%if(status){%>
+                    <%if(status){
+%>
                 <svg id="footprint_btn" t="1595096347483" class="icon" viewBox="0 0 1024 1024" version="1.1"
                      xmlns="http://www.w3.org/2000/svg" p-id="1149" width="20" height="20">
                     <path d="M867.421091 109.381818a205.265455 205.265455 0 0 0-146.990546-61.905454 184.925091 184.925091 0 0 0-86.900363 21.224727 178.408727 178.408727 0 0 0-78.103273 220.485818c25.6 62.836364 41.239273 129.256727 46.219636 196.887273v14.801454l320.744728-31.883636 2.792727-210.757818a205.265455 205.265455 0 0 0-57.762909-148.852364z m-282.903273 453.445818a134.516364 134.516364 0 0 0 24.994909 167.796364 184.878545 184.878545 0 0 0 306.874182-135.912727V514.792727l-329.076364 32.814546c0.465455 5.12-0.465455 8.331636-2.792727 15.266909z m-199.68-298.123636a184.925091 184.925091 0 0 0-86.900363-21.271273 205.265455 205.265455 0 0 0-204.753455 210.292364l6.050909 210.804364 320.279273 30.021818v-14.801455c4.328727-66.699636 18.990545-132.328727 43.473454-194.56a178.408727 178.408727 0 0 0-78.149818-220.485818z m44.404364 478.859636l-329.076364-32.814545v79.965091a184.878545 184.878545 0 0 0 309.201455 134.981818 134.516364 134.516364 0 0 0 24.948363-167.796364c-2.327273-4.189091-3.258182-9.309091-5.12-14.336z"
                           fill="#565db0" p-id="1150"></path>
                 </svg>
-                <button id="privilege" class="block">Block friends' access</button>
+                <button id="privilege"
+                        class="<%= (user.getState() == 1 )? "block":"allow"%>"><%= (user.getState() == 1) ? "block" : "allow"%>
+                    friends' access
+                </button>
                     <%}%>
                 <aside>
-            <li class="headline"><%= status? "My" :  user.getUsername()+"'s"%> footprints</li>
+            <li class="headline"><%= status ? "My" : user.getUsername() + "'s"%> footprints</li>
             <%
                 if (status && session.getAttribute("footprint") != null) {
                     List<Img> foots = (List<Img>) session.getAttribute("footprint");
@@ -84,7 +93,7 @@
                 </svg>
             </li>
             <%
-                imgs = (status) ? userService.myFavor(UserServiceImpl.getCookieByName(request, "username").getValue()) : userService.myFavor(user.getUsername());
+                imgs = userService.myFavor(user.getUsername());
                 totalPage = ((imgs.size() % pageSize == 0) ? (imgs.size() / pageSize) : (imgs.size() / pageSize + 1));
                 if (!status && user.getState() == 0) {
                     System.out.println(user.getUsername());

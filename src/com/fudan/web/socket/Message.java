@@ -3,9 +3,7 @@ package com.fudan.web.socket;
 
 import com.alibaba.fastjson.JSONObject;
 
-/**
- * @author anyesu
- */
+
 public class Message {
 
     /**

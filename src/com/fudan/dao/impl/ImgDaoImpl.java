@@ -90,7 +90,7 @@ public class ImgDaoImpl extends BaseDao implements ImgDao {
         String country = "(SELECT ISO from geocountries where CountryName = '"+img.getCountryName()+"')";
         String city = "(SELECT a.GeoNameID from geocities as a, "+country+" as b where a.AsciiName = \""+ img.getAsciiName()+"\" and a.CountryCodeISO = b.ISO )";
         String file = (img.getPath() != null)?", PATH = '"+img.getPath()+"'" : "";
-        String sql = "update travelimage set Title = '"+img.getTitle()+"', Description = '"+img.getDescription()+"', CountryCodeISO = "+country+", CityCode = "+city+", Content = '"+img.getContent()+"' "+file+" where ImageID= "+img.getImageID()+"";
+        String sql = "update travelimage set Title = '"+img.getTitle()+"', Description = '"+img.getDescription()+"', CountryCodeISO = "+country+", CityCode = "+city+", Content = '"+img.getContent()+"', Time = CURRENT_TIME"+file+" where ImageID= "+img.getImageID()+"";
         update(sql);
 
 

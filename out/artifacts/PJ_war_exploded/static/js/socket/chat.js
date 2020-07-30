@@ -39,10 +39,10 @@ var MODE_TEXT = 0,
         wsonclose: function (msg) {
             if (chatterClient.isMe(msg.host)) {
                 chatterClient.initUserList(null);
-                msg = "您已退出聊天室"
+                msg = "You have quit the chat room"
             } else {
                 chatterClient.initUserList(msg.dests);
-                msg = msg.host + "退出了聊天室"
+                msg = msg.host + " has quit the chat room"
             }
             Console.log(msg, true)
         },
@@ -87,7 +87,7 @@ chatterClient.setRoomInfo = function (roomInfo) {
     var creator = roomInfo.creator || "神秘用户";
     var createTime = roomInfo.createTime || new Date().toLocaleString();
     _str.append('<span class="host">' + creator + '</span>');
-    _str.append('创建于' + createTime);
+    _str.append(' created at ' + createTime);
     $(".mwd .pageTop .title").html(_str.toString())
 };
 chatterClient.initUserList = function (list) {

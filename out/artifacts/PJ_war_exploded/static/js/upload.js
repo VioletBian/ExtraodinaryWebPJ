@@ -156,7 +156,13 @@ function selectByData(v,x){
 if(btnUpload) btnUpload.onclick = function(){
 
     if(justifyInfo()){
-        UpladFile(false);
+        if(confirm("Confirm your uploading?")){
+            UpladFile(false);
+            //确认执行时的代码
+        }else{
+            return;//取消执行时的代码
+        }
+
 
     }
     else {
@@ -171,7 +177,12 @@ if(btnUpload) btnUpload.onclick = function(){
 if(btnModify) btnModify.onclick = function() {
 
     if(justifyInfo()){
+        if(confirm("Confirm your modification?")){
         UpladFile(true);
+            //确认执行时的代码
+        }else{
+            return;//取消执行时的代码
+        }
     }
     else {
         for (ele of inputs){

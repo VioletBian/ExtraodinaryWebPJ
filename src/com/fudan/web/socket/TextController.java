@@ -18,11 +18,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import com.fudan.web.socket.Message.*;
 
-/**
- * Websocket 文字通讯
- *
- * @author anyesu
- */
+
 @ServerEndpoint(value = "/websocket/chat/{relationID}", configurator = WsConfigurator.class)
 public class TextController extends BaseController {
 

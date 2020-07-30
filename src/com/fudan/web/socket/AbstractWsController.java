@@ -18,7 +18,6 @@ public abstract class AbstractWsController {
     /**
      * Websocket 通讯 抽象类
      *
-     * @author anyesu
      */
 
 

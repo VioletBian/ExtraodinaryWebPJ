@@ -48,7 +48,9 @@ public class Img implements Comparator {
     }
 
     public void setTime(Date time) {
+
         this.time = time;
+
     }
 
 

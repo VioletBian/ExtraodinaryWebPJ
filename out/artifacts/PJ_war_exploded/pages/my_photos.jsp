@@ -95,6 +95,15 @@
 <script src='static/js/nav&footer.js'></script>
 <script src="static/js/paging.js"></script>
 <script src='static/js/change_skin.js'></script>
+<script>
+    $("#delete a").click(function(){
+        if(confirm("Confirm deleting this image?")){
+            location.href($("#delete a").attr(href));
+        }else{
+            return false;
+        }
+    });
 
+</script>
 
 </html>

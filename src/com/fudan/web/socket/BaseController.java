@@ -3,11 +3,7 @@ package com.fudan.web.socket;
 import com.alibaba.fastjson.JSONObject;
 import com.fudan.utils.StringUtil;
 
-/**
- * 公共逻辑
- *
- * @author anyesu
- */
+
 public abstract class BaseController extends AbstractWsController {
 
 	private static final String CONNECT_TYPE_TEXT = "text";

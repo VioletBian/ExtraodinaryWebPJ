@@ -73,7 +73,8 @@
                     </p>
 
                     <p><input type="text" name="email" placeholder="Your email"
-                              maxlength="100" id="id_email" required></p>
+                              maxlength="100" id="id_email" pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"
+                              oninvalid="setCustomValidity('Email required is invalid')" oninput="setCustomValidity('')" required></p>
                     <% if (status == 2 || status == 4) {%>
                     <script>document.getElementById("id_email").value = '<%=request.getParameter("email")%>';</script>
                     <% }%>
